@@ -1,23 +1,15 @@
 # include <Siv3D.hpp> // OpenSiv3D v0.6.4
 
-void Main()
-{
-	// 背景の色を設定 | Set background color
-	Scene::SetBackground(ColorF{ 0.8, 0.9, 1.0 });
-
-	Grid<double> mp{
+Grid<double> mp{
 		{ 1, 5, 9, 13},
 		{ 2, 6, 10, 14},
 		{ 3, 7, 11, 15},
 		{ 4, 8, 12, 16}
-	};
+};
+
+void reset() {
 
 	int s = 4, t = 4;
-
-	bool flag = 0;
-
-	const Font font{ 50 };
-	String text = U"";
 
 	int cnt = Random(10000) + 100;
 
@@ -65,7 +57,22 @@ void Main()
 		}
 	}
 
-	int x = 4, y = 4;
+}
+
+void Main()
+{
+	// 背景の色を設定 | Set background color
+	Scene::SetBackground(ColorF{ 0.8, 0.9, 1.0 });
+
+
+	bool flag = 0;
+
+	const Font font{ 50 };
+	String text = U"";
+
+	reset();
+
+	int x, y;
 
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
@@ -153,7 +160,7 @@ void Main()
 				mp[x - 1][y] = tmp;
 				y++;
 
-				flag = 1;;
+				flag = 1;
 			}
 
 		}
@@ -212,8 +219,37 @@ void Main()
 		}
 
 		if (sflag == 1) {
+
+			if (KeyR.pressed() && flag == 0) {
+
+				reset();
+
+				for (int i = 0; i < 4; i++) {
+					for (int j = 0; j < 4; j++) {
+						if (mp[i][j] == 16) {
+							x = i + 1;
+							y = j + 1;
+						}
+					}
+				}
+			}
+
+			if (SimpleGUI::Button(U"RESTART!!", Vec2{ 640, 240 }))
+			{
+				reset();
+
+				for (int i = 0; i < 4; i++) {
+					for (int j = 0; j < 4; j++) {
+						if (mp[i][j] == 16) {
+							x = i + 1;
+							y = j + 1;
+						}
+					}
+				}
+			}
+
 			text = U"CLEAR!!";
-			font(text).drawAt(Vec2(640,300), ColorF{ 0.25 });
+			font(text).drawAt(Vec2(640,320), ColorF{ 0.25 });
 		}
 
 	}
