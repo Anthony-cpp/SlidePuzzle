@@ -7,5 +7,5 @@ WIP
 
 プレイしたい方は↓のファイルをダウンロードするか、公開しているコードをコンパイルしてください。
 
-DL:
+DL:https://drive.google.com/drive/folders/1z8zYd5oYpjUhASDhgJwMtRsEZEgBwucc?usp=sharing
 (2022.8.1 更新)
