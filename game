@@ -7,6 +7,7 @@ Grid<double> mp{
 		{ 4, 8, 12, 16}
 };
 
+
 void reset() {
 
 	int s = 4, t = 4;
@@ -59,8 +60,9 @@ void reset() {
 
 }
 
-void Main()
-{
+
+void game(){
+
 	// 背景の色を設定 | Set background color
 	Scene::SetBackground(ColorF{ 0.8, 0.9, 1.0 });
 
@@ -77,8 +79,8 @@ void Main()
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
 			if (mp[i][j] == 16) {
-				x = i+1;
-				y = j+1;
+				x = i + 1;
+				y = j + 1;
 			}
 		}
 	}
@@ -214,7 +216,7 @@ void Main()
 
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-				if (mp[i][j] != 4 * j + i+1 ) sflag = 0;
+				if (mp[i][j] != 4 * j + i + 1) sflag = 0;
 			}
 		}
 
@@ -249,8 +251,34 @@ void Main()
 			}
 
 			text = U"CLEAR!!";
-			font(text).drawAt(Vec2(640,320), ColorF{ 0.25 });
+			font(text).drawAt(Vec2(640, 320), ColorF{ 0.25 });
 		}
 
 	}
+
+}
+
+
+void Main(){
+
+	Scene::SetBackground(ColorF{ 0.9, 0.9, 1.0 });
+
+	const Font font{ 100 };
+	String text = U"";
+
+	bool flag = 0;
+
+	while (System::Update())
+	{
+		text = U"Slide Puzzle";
+		font(text).drawAt(Vec2(320, 240), ColorF{ Palette::Black });
+
+		if (SimpleGUI::Button(U"START!!", Vec2{ 320, 300 }))
+		{
+			flag = 1;
+		}
+
+		if (flag == 1) game();
+	}
+
 }
