@@ -1,4 +1,4 @@
-﻿# include <Siv3D.hpp> // OpenSiv3D v0.6.4
+# include <Siv3D.hpp> // OpenSiv3D v0.6.4
 
 Grid<double> mp{
 		{ 1, 5, 9, 13},
@@ -261,7 +261,7 @@ void game(){
 
 void Main(){
 
-	Scene::SetBackground(ColorF{ 0.9, 0.9, 1.0 });
+	Scene::SetBackground(Palette::White);
 
 	const Font font{ 100 };
 	String text = U"";
@@ -271,9 +271,9 @@ void Main(){
 	while (System::Update())
 	{
 		text = U"Slide Puzzle";
-		font(text).drawAt(Vec2(320, 240), ColorF{ Palette::Black });
+		font(text).drawAt(Vec2(400, 240), ColorF{ Palette::Black });
 
-		if (SimpleGUI::Button(U"START!!", Vec2{ 320, 300 }))
+		if (SimpleGUI::Button(U"START!!", Vec2{ 300, 340 },200))
 		{
 			flag = 1;
 		}
