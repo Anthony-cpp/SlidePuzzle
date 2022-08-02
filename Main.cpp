@@ -266,19 +266,47 @@ void Main(){
 	const Font font{ 100 };
 	String text = U"";
 
-	bool flag = 0;
+	int flag = 0;
 
 	while (System::Update())
 	{
-		text = U"Slide Puzzle";
-		font(text).drawAt(Vec2(400, 240), ColorF{ Palette::Black });
 
-		if (SimpleGUI::Button(U"START!!", Vec2{ 300, 340 },200))
-		{
-			flag = 1;
+		if (flag == 2) game();
+		if (flag == 3) game();
+		if (flag == 4) game();
+
+		if (flag == 0) {
+			text = U"Slide Puzzle";
+			font(text).drawAt(Vec2(400, 240), ColorF{ Palette::Black });
+
+			if (SimpleGUI::Button(U"START!!", Vec2{ 300, 340 }, 200))
+			{
+				flag = 1;
+			}
 		}
 
-		if (flag == 1) game();
+		if (flag == 1) {
+
+			text = U"Mode Select";
+			font(text).drawAt(Vec2(400, 150), ColorF{ Palette::Black });
+
+			if (SimpleGUI::Button(U"3×3", Vec2{ 300, 240 }, 200))
+			{
+				flag = 2;
+			}
+
+			if (SimpleGUI::Button(U"4×4", Vec2{ 300, 300 }, 200))
+			{
+				flag = 3;
+			}
+
+			if (SimpleGUI::Button(U"5×5", Vec2{ 300, 360 }, 200))
+			{
+				flag = 4;
+			}
+
+		}
+
 	}
 
 }
