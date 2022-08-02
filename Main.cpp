@@ -1,16 +1,20 @@
 # include <Siv3D.hpp> // OpenSiv3D v0.6.4
 
 Grid<double> mp{
-		{ 1, 5, 9, 13},
-		{ 2, 6, 10, 14},
-		{ 3, 7, 11, 15},
-		{ 4, 8, 12, 16}
+	{0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0}
 };
 
 
-void reset() {
+void reset(int l,int m) {
 
-	int s = 4, t = 4;
+	int s = l, t = m;
 
 	int cnt = Random(10000) + 100;
 
@@ -19,7 +23,7 @@ void reset() {
 
 		if (p == 3) {
 
-			if (t != 4) {
+			if (t != m) {
 				int tmp = mp[s - 1][t - 1];
 				mp[s - 1][t - 1] = mp[s - 1][t];
 				mp[s - 1][t] = tmp;
@@ -39,7 +43,7 @@ void reset() {
 
 		if (p == 1) {
 
-			if (s != 4) {
+			if (s != l) {
 				int tmp = mp[s - 1][t - 1];
 				mp[s - 1][t - 1] = mp[s][t - 1];
 				mp[s][t - 1] = tmp;
@@ -61,10 +65,16 @@ void reset() {
 }
 
 
-void game(){
+void game(int l,int m){
 
 	// 背景の色を設定 | Set background color
 	Scene::SetBackground(ColorF{ 0.8, 0.9, 1.0 });
+
+	for (int i = 0; i < l;i++) {
+		for (int j = 0; j < m; j++) {
+			mp[i][j] = l*j + i + 1;
+		}
+	}
 
 
 	bool flag = 0;
@@ -72,13 +82,13 @@ void game(){
 	const Font font{ 50 };
 	String text = U"";
 
-	reset();
+	reset(l,m);
 
 	int x, y;
 
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			if (mp[i][j] == 16) {
+	for (int i = 0; i < l; i++) {
+		for (int j = 0; j < m; j++) {
+			if (mp[i][j] == l*m) {
 				x = i + 1;
 				y = j + 1;
 			}
@@ -88,12 +98,12 @@ void game(){
 
 	while (System::Update())
 	{
-		Rect{ 30, 30, 450, 450 }.draw(Palette::Brown);
+		Rect{ 30, 30, 10+110*l,10+110*m }.draw(Palette::Brown);
 
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
+		for (int i = 0; i < l; i++) {
+			for (int j = 0; j < m; j++) {
 
-				if (mp[i][j] != 16) {
+				if (mp[i][j] != l*m) {
 
 					text = U"{}"_fmt(mp[i][j]);
 					Rect{ 40 + (i) * 110, 40 + (j) * 110, 100, 100 }.draw(Palette::Orange);
@@ -108,7 +118,7 @@ void game(){
 		if (SimpleGUI::Button(U"Up", Vec2{ 640, 40 }))
 		{
 
-			if (y != 4) {
+			if (y != m) {
 				int tmp = mp[x - 1][y - 1];
 				mp[x - 1][y - 1] = mp[x - 1][y];
 				mp[x - 1][y] = tmp;
@@ -133,7 +143,7 @@ void game(){
 		if (SimpleGUI::Button(U"Left", Vec2{ 640, 140 }))
 		{
 
-			if (x != 4) {
+			if (x != l) {
 				int tmp = mp[x - 1][y - 1];
 				mp[x - 1][y - 1] = mp[x][y - 1];
 				mp[x][y - 1] = tmp;
@@ -156,7 +166,7 @@ void game(){
 
 		if (KeyUp.pressed() && flag == 0) {
 
-			if (y != 4) {
+			if (y != m) {
 				int tmp = mp[x - 1][y - 1];
 				mp[x - 1][y - 1] = mp[x - 1][y];
 				mp[x - 1][y] = tmp;
@@ -182,7 +192,7 @@ void game(){
 
 		if (KeyLeft.pressed() && flag == 0) {
 
-			if (x != 4) {
+			if (x != l) {
 				int tmp = mp[x - 1][y - 1];
 				mp[x - 1][y - 1] = mp[x][y - 1];
 				mp[x][y - 1] = tmp;
@@ -214,9 +224,9 @@ void game(){
 
 		int sflag = 1;
 
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				if (mp[i][j] != 4 * j + i + 1) sflag = 0;
+		for (int i = 0; i < l; i++) {
+			for (int j = 0; j < m; j++) {
+				if (mp[i][j] != l * j + i + 1) sflag = 0;
 			}
 		}
 
@@ -224,11 +234,11 @@ void game(){
 
 			if (KeyR.pressed() && flag == 0) {
 
-				reset();
+				reset(l,m);
 
-				for (int i = 0; i < 4; i++) {
-					for (int j = 0; j < 4; j++) {
-						if (mp[i][j] == 16) {
+				for (int i = 0; i < l; i++) {
+					for (int j = 0; j < m; j++) {
+						if (mp[i][j] == l*m) {
 							x = i + 1;
 							y = j + 1;
 						}
@@ -238,11 +248,11 @@ void game(){
 
 			if (SimpleGUI::Button(U"RESTART!!", Vec2{ 640, 240 }))
 			{
-				reset();
+				reset(l,m);
 
-				for (int i = 0; i < 4; i++) {
-					for (int j = 0; j < 4; j++) {
-						if (mp[i][j] == 16) {
+				for (int i = 0; i < l; i++) {
+					for (int j = 0; j < m; j++) {
+						if (mp[i][j] == l*m) {
 							x = i + 1;
 							y = j + 1;
 						}
@@ -271,9 +281,10 @@ void Main(){
 	while (System::Update())
 	{
 
-		if (flag == 2) game();
-		if (flag == 3) game();
-		if (flag == 4) game();
+		if (flag == 2) game(2,2);
+		if (flag == 3) game(3,3);
+		if (flag == 4) game(4,4);
+		if (flag == 5) game(5,5);
 
 		if (flag == 0) {
 			text = U"Slide Puzzle";
@@ -290,19 +301,24 @@ void Main(){
 			text = U"Mode Select";
 			font(text).drawAt(Vec2(400, 150), ColorF{ Palette::Black });
 
-			if (SimpleGUI::Button(U"3×3", Vec2{ 300, 240 }, 200))
+			if (SimpleGUI::Button(U"2×2", Vec2{ 100, 240 }, 200))
 			{
 				flag = 2;
 			}
 
-			if (SimpleGUI::Button(U"4×4", Vec2{ 300, 300 }, 200))
+			if (SimpleGUI::Button(U"3×3", Vec2{ 100, 300 }, 200))
 			{
 				flag = 3;
 			}
 
-			if (SimpleGUI::Button(U"5×5", Vec2{ 300, 360 }, 200))
+			if (SimpleGUI::Button(U"4×4", Vec2{ 100, 360 }, 200))
 			{
 				flag = 4;
+			}
+
+			if (SimpleGUI::Button(U"5×5", Vec2{ 100, 420 }, 200))
+			{
+				flag = 5;
 			}
 
 		}
