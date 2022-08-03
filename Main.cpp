@@ -98,7 +98,7 @@ void game(int l,int m){
 
 	while (System::Update())
 	{
-		Rect{ 30, 30, 10+110*l,10+110*m }.draw(Palette::Brown);
+		Rect{ 30, 30, 10+110*4,10+110*4 }.draw(Palette::Brown);
 
 		for (int i = 0; i < l; i++) {
 			for (int j = 0; j < m; j++) {
@@ -106,8 +106,8 @@ void game(int l,int m){
 				if (mp[i][j] != l*m) {
 
 					text = U"{}"_fmt(mp[i][j]);
-					Rect{ 40 + (i) * 110, 40 + (j) * 110, 100, 100 }.draw(Palette::Orange);
-					font(text).drawAt(Vec2(90 + i * 110, 90 + j * 110), ColorF{ 0.25 });
+					Rect{ 40 + (i) * (440/l), 40 + (j) * (440/m), (440-l*10)/l, (440 - m * 10) / m }.draw(Palette::Orange);
+					font(text).drawAt(Vec2(40+ (440 - l * 10) / l/2 + i * (440/l), 40+(440 - m * 10) / m/2 + j * (440/m)), ColorF{0.25});
 
 				}
 			}
@@ -285,6 +285,7 @@ void Main(){
 		if (flag == 3) game(3,3);
 		if (flag == 4) game(4,4);
 		if (flag == 5) game(5,5);
+		if (flag == 6) game(6, 6);
 
 		if (flag == 0) {
 			text = U"Slide Puzzle";
@@ -319,6 +320,11 @@ void Main(){
 			if (SimpleGUI::Button(U"5×5", Vec2{ 100, 420 }, 200))
 			{
 				flag = 5;
+			}
+
+			if (SimpleGUI::Button(U"6×6", Vec2{ 100, 480 }, 200))
+			{
+				flag = 6;
 			}
 
 		}
