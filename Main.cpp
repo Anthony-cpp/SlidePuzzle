@@ -80,9 +80,15 @@ void game(int l,int m){
 	bool flag = 0;
 
 	const Font font{ 50 };
+	const Font f2{ 100 };
+	const Font f3{ 80 };
+	const Font f5{ 40 };
+	const Font f6{ 30 };
 	String text = U"";
 
 	reset(l,m);
+
+	int fontsize = 100;
 
 	int x, y;
 
@@ -107,8 +113,11 @@ void game(int l,int m){
 
 					text = U"{}"_fmt(mp[i][j]);
 					Rect{ 40 + (i) * (440/l), 40 + (j) * (440/m), (440-l*10)/l, (440 - m * 10) / m }.draw(Palette::Orange);
-					font(text).drawAt(Vec2(40+ (440 - l * 10) / l/2 + i * (440/l), 40+(440 - m * 10) / m/2 + j * (440/m)), ColorF{0.25});
-
+					if(l == 4) font(text).drawAt(Vec2(40+ (440 - l * 10) / l/2 + i * (440/l), 40+(440 - m * 10) / m/2 + j * (440/m)) , ColorF{0.25});
+					if(l == 2) f2(text).drawAt(Vec2(40 + (440 - l * 10) / l / 2 + i * (440 / l), 40 + (440 - m * 10) / m / 2 + j * (440 / m)), ColorF{ 0.25 });
+					if(l == 3) f3(text).drawAt(Vec2(40 + (440 - l * 10) / l / 2 + i * (440 / l), 40 + (440 - m * 10) / m / 2 + j * (440 / m)), ColorF{ 0.25 });
+					if(l == 5) f5(text).drawAt(Vec2(40 + (440 - l * 10) / l / 2 + i * (440 / l), 40 + (440 - m * 10) / m / 2 + j * (440 / m)), ColorF{ 0.25 });
+					if(l == 6) f6(text).drawAt(Vec2(40 + (440 - l * 10) / l / 2 + i * (440 / l), 40 + (440 - m * 10) / m / 2 + j * (440 / m)), ColorF{ 0.25 });
 				}
 			}
 
