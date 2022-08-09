@@ -11,6 +11,8 @@ Grid<double> mp{
 	{0,0,0,0,0,0,0}
 };
 
+int flag2 = 0;
+
 
 void reset(int l,int m) {
 
@@ -64,6 +66,15 @@ void reset(int l,int m) {
 
 }
 
+void g_option(){
+
+	if (SimpleGUI::Button(U"back", Vec2{ 20, 500 }, 100))
+	{
+		flag2 = 1;
+		return;
+	}
+}
+
 
 void game(int l,int m){
 
@@ -101,6 +112,7 @@ void game(int l,int m){
 		}
 	}
 
+	
 
 	while (System::Update())
 	{
@@ -239,6 +251,12 @@ void game(int l,int m){
 			}
 		}
 
+		if (SimpleGUI::Button(U"back", Vec2{ 20, 500 }, 100))
+		{
+			flag2 = 1;
+			return;
+		}
+
 		if (sflag == 1) {
 
 			if (KeyR.pressed() && flag == 0) {
@@ -285,55 +303,62 @@ void Main(){
 	const Font font{ 100 };
 	String text = U"";
 
-	int flag = 0;
-
 	while (System::Update())
 	{
 
-		if (flag == 2) game(2,2);
-		if (flag == 3) game(3,3);
-		if (flag == 4) game(4,4);
-		if (flag == 5) game(5,5);
-		if (flag == 6) game(6, 6);
+		if (flag2 == 2) game(2,2);
+		if (flag2 == 3) game(3,3);
+		if (flag2 == 4) game(4,4);
+		if (flag2 == 5) game(5,5);
+		if (flag2 == 6) game(6, 6);
+		if (flag2 == 7) g_option();
 
-		if (flag == 0) {
+		if (flag2 == 0) {
 			text = U"Slide Puzzle";
 			font(text).drawAt(Vec2(400, 240), ColorF{ Palette::Black });
 
 			if (SimpleGUI::Button(U"START!!", Vec2{ 300, 340 }, 200))
 			{
-				flag = 1;
+				flag2 = 1;
 			}
 		}
 
-		if (flag == 1) {
+		if (flag2 == 1) {
+
+			Scene::SetBackground(Palette::White);
 
 			text = U"Mode Select";
 			font(text).drawAt(Vec2(400, 150), ColorF{ Palette::Black });
 
 			if (SimpleGUI::Button(U"2×2", Vec2{ 100, 240 }, 200))
 			{
-				flag = 2;
+				flag2 = 2;
 			}
 
 			if (SimpleGUI::Button(U"3×3", Vec2{ 100, 300 }, 200))
 			{
-				flag = 3;
+				flag2 = 3;
 			}
 
 			if (SimpleGUI::Button(U"4×4", Vec2{ 100, 360 }, 200))
 			{
-				flag = 4;
+				flag2 = 4;
 			}
 
 			if (SimpleGUI::Button(U"5×5", Vec2{ 100, 420 }, 200))
 			{
-				flag = 5;
+				flag2 = 5;
 			}
 
 			if (SimpleGUI::Button(U"6×6", Vec2{ 100, 480 }, 200))
 			{
-				flag = 6;
+				flag2 = 6;
+			}
+
+
+			if (SimpleGUI::Button(U"option", Vec2{ 500, 480 }, 200))
+			{
+				flag2 = 7;
 			}
 
 		}
