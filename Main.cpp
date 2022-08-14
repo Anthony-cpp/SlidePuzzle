@@ -13,6 +13,12 @@ Grid<double> mp{
 
 int flag2 = 0;
 
+double r1 = 0.8, g1 = 0.9, b1 = 1.0;
+double r2 = 0.6, g2 = 0.27, b2 = 0.0;
+double r3 = 1.0, g3 = 0.7, b3 = 0.02;
+
+
+
 
 void reset(int l,int m) {
 
@@ -68,10 +74,27 @@ void reset(int l,int m) {
 
 void g_option(){
 
+	const Font font{ 30 };
+
+	String text;
+
+	constexpr Rect area{ 50, 50, 700, 300 };
+
+	while (System::Update())
+	{
+
+	if (SimpleGUI::Button(U"background", Vec2{ 500, 500 }, 100))
+	{
+			flag2 = 1;
+			return;
+	}
+
+
 	if (SimpleGUI::Button(U"back", Vec2{ 20, 500 }, 100))
 	{
 		flag2 = 1;
 		return;
+	}
 	}
 }
 
@@ -79,7 +102,7 @@ void g_option(){
 void game(int l,int m){
 
 	// 背景の色を設定 | Set background color
-	Scene::SetBackground(ColorF{ 0.8, 0.9, 1.0 });
+	Scene::SetBackground(ColorF{ r1, g1, b1 });
 
 	for (int i = 0; i < l;i++) {
 		for (int j = 0; j < m; j++) {
@@ -116,7 +139,7 @@ void game(int l,int m){
 
 	while (System::Update())
 	{
-		Rect{ 30, 30, 10+110*4,10+110*4 }.draw(Palette::Brown);
+		Rect{ 30, 30, 10+110*4,10+110*4 }.draw(ColorF{ r2,g2,b2 });
 
 		for (int i = 0; i < l; i++) {
 			for (int j = 0; j < m; j++) {
@@ -124,7 +147,7 @@ void game(int l,int m){
 				if (mp[i][j] != l*m) {
 
 					text = U"{}"_fmt(mp[i][j]);
-					Rect{ 40 + (i) * (440/l), 40 + (j) * (440/m), (440-l*10)/l, (440 - m * 10) / m }.draw(Palette::Orange);
+					Rect{ 40 + (i) * (440/l), 40 + (j) * (440/m), (440-l*10)/l, (440 - m * 10) / m }.draw(ColorF{ r3,g3,b3 });
 					if(l == 4) font(text).drawAt(Vec2(40+ (440 - l * 10) / l/2 + i * (440/l), 40+(440 - m * 10) / m/2 + j * (440/m)) , ColorF{0.25});
 					if(l == 2) f2(text).drawAt(Vec2(40 + (440 - l * 10) / l / 2 + i * (440 / l), 40 + (440 - m * 10) / m / 2 + j * (440 / m)), ColorF{ 0.25 });
 					if(l == 3) f3(text).drawAt(Vec2(40 + (440 - l * 10) / l / 2 + i * (440 / l), 40 + (440 - m * 10) / m / 2 + j * (440 / m)), ColorF{ 0.25 });
@@ -297,6 +320,8 @@ void game(int l,int m){
 
 
 void Main(){
+
+	Window::SetTitle(U"Slide_Puzzle");
 
 	Scene::SetBackground(Palette::White);
 
