@@ -5,9 +5,8 @@ WIP
 
 Siv3d:https://siv3d.github.io/ja-jp/
 
-まだ、ランダムに生成してキーかボタン操作で動かせるようにしかなっていません。
-
 プレイしたい方は↓のファイルをダウンロードしてください。
 
 DL:https://drive.google.com/drive/folders/1z8zYd5oYpjUhASDhgJwMtRsEZEgBwucc?usp=sharing
-(2022.8.9 更新 ver1.05)
+(2022.8.16 更新 ver1.06)
+旧バージョンも保存してあります。
